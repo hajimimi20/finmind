@@ -21,15 +21,15 @@ headers = {
 
 }
 
-#改用 json 傳入 params 參數: 
+#改用 json 傳入 params 參數: API條件設定
 params = {
     #dataset=TaiwanStockInfo&data_id=2330&start_date=2026-08-19&end_date=2026-08-21
-    "dataset": "TaiwanStockInfo",
-    "data_id": "2330",
-    "start_date": "2026-08-19",
-    "end_date": "2026-08-21"
+    "dataset": "TaiwanStockInfo",       #資料集 from FinMind API
+    "data_id": "2317"
 }
 
 #pprint(headers)
 response=requests.get(url3, headers=headers, params=params)
-pprint(response.json())
+data = response.json()
+print(f"總共資料筆數:{len(data['data'])}")
+pprint(data)
