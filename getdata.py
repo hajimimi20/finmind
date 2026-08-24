@@ -42,13 +42,8 @@ data = response.json()
 #JSON → DataFrame：把 data["data"] 裡面的資料轉成 Pandas DataFrame 
 df = pd.DataFrame(data["data"])
 
-print(df)               #dataframe 內容
+print(df[["date", "open", "max", "min", "close", "Trading_Volume"]])        #列出資料
 
-print("\n資料形狀:")
-print(df.shape)         #(列,欄) 數量
 
-print("\n欄位:")
-print(df.columns)       #所有欄位內容
-
-print("\n日期與收盤價:")
-print(df[["date", "close"]])
+max_price = df["close"].max()               #max_price=收盤價最大值
+print(df[df["close"] == max_price])         #列出收盤價最大值那天整 row 的資料
