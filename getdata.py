@@ -19,7 +19,6 @@ headers = {
         "AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/139.0.0.0 Safari/537.36"
     ),
-
 }
 
 #改用 json 傳入 params 參數: API條件設定
@@ -32,7 +31,6 @@ params = {
     "end_date": "2026-08-21"           #結束日期
 }
 
-#pprint(headers)
 response=requests.get(
     url3, 
     headers=headers, 
@@ -41,19 +39,16 @@ response=requests.get(
 
 data = response.json()
 
+#JSON → DataFrame：把 data["data"] 裡面的資料轉成 Pandas DataFrame 
+df = pd.DataFrame(data["data"])
 
-print(f"總共資料筆數:{len(data['data'])}")
+print(df)               #dataframe 內容
 
-pprint(f"股票id：{data['data'][0]['stock_id']}")
-pprint(f"第一筆資料的日期：{data['data'][0]['date']}")
-pprint(f"第一筆資料的收盤價：{data['data'][0]['close']}") 
+print("\n資料形狀:")
+print(df.shape)         #(列,欄) 數量
 
+print("\n欄位:")
+print(df.columns)       #所有欄位內容
 
-for row in data["data"]:
-    print(
-        f"日期: {row['date']} "
-        f"開盤: {row['open']} "
-        f"最高: {row['max']} "
-        f"最低: {row['min']} "
-        f"收盤: {row['close']}"
-    )
+print("\n日期與收盤價:")
+print(df[["date", "close"]])
